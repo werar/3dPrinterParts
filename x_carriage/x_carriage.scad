@@ -21,7 +21,6 @@ module bearing(x,y,z,r)
     }
 }
 
-
 module sanki(r)
 {
     rotate([-90,0,0])
