@@ -1,5 +1,4 @@
-
-show_not_related_components=0;
+show_not_related_components=1;
 
 dlugosc_lozyska=30;
 srednica_lozyska=19;
@@ -15,7 +14,6 @@ odstep_miedzy_lozyskami=dlugosc_lozyska+32;
 
 dlugosc_sanek=200;
 rozstaw_osi=44.67;
-
 
 wysokosc_glownej_powierzchni=7;
 szerokosc_glownej_powierzchni=80;
@@ -64,14 +62,17 @@ module LM10UU()
 module main_surface()
 {
     origin_glownej_powierzchni=-(szerokosc_wsparcia_lozyska/2+margin/2);
+    
+    szerokosc_additional_part=13;
+    glebokosc_additional_part=10;
+    
     difference()
     {
         translate([origin_glownej_powierzchni,0,0])
         union()
         {
             cube([szerokosc_glownej_powierzchni,glebokosc_glownej_powierzchni,wysokosc_glownej_powierzchni]);
-            szerokosc_additional_part=20;
-            glebokosc_additional_part=25;
+            
             translate([-szerokosc_additional_part,glebokosc_glownej_powierzchni/2-glebokosc_additional_part/2,0])  
             main_surface_additional_part(szerokosc_additional_part,glebokosc_additional_part,wysokosc_glownej_powierzchni);
             
@@ -94,8 +95,8 @@ module main_surface()
             grzalka();
             //otwory montazowe extrudera
             translate([14.5,0,0])cylinder(wysokosc_glownej_powierzchni,3/2,3/2);
-            translate([-45,0,0])cylinder(wysokosc_glownej_powierzchni,3/2,3/2);
-        }    
+            translate([-46,0,0])cylinder(wysokosc_glownej_powierzchni,3/2,3/2);
+       }    
         //otwory na pasek
         x_offset_na_pasek=20;
         y_offset_na_pasek=20;
@@ -111,7 +112,14 @@ module main_surface_additional_part(x,y,z)
 module grzalka()
 {
     $fn=50;
-    cylinder(32,16/2,16/2);
+    promien_wejscia_do_extrudera=17/2;
+    naszerszy_promien=23/2; //22/2 powinno byc
+    translate([0,0,0]) cylinder(17,promien_wejscia_do_extrudera,promien_wejscia_do_extrudera); 
+    
+    translate([0,0,-25.5]) cylinder(25,naszerszy_promien,naszerszy_promien);
+    //translate([-1.25*naszerszy_promien,-1.25*naszerszy_promien,-32]) cube([30,32,30]);
+    
+    //było 16/2 ale wyszlo 15.5 wiec powiekszylem
     //cylinder(32,24.78/2,24.78/2);
 }
 
@@ -155,4 +163,4 @@ translate([0,-20,0])sanki(10);
 }
 }
 
-
+//grzalka();
