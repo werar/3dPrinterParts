@@ -10,14 +10,14 @@ wysokosc_wsparcia_lozyska=10;
 margin=4;
 
 
-odstep_miedzy_lozyskami=dlugosc_lozyska+32;
+odstep_miedzy_lozyskami=dlugosc_lozyska+17;
 
 dlugosc_sanek=200;
 rozstaw_osi=44.67;
 
 wysokosc_glownej_powierzchni=7;
-szerokosc_glownej_powierzchni=80;
-glebokosc_glownej_powierzchni=2*dlugosc_lozyska+32;
+szerokosc_glownej_powierzchni=82;
+glebokosc_glownej_powierzchni=2*dlugosc_lozyska+17;
 
 //Kolor dodatkowy  
 sec_colour        = "OrangeRed";  
@@ -82,8 +82,10 @@ module main_surface()
             bearing(szerokosc_wsparcia_lozyska,dlugosc_lozyska,wysokosc_wsparcia_lozyska,srednica_lozyska);
             //drugie z dwóch
             translate([rozstaw_osi,odstep_miedzy_lozyskami,-wysokosc_wsparcia_lozyska-margin]) bearing(szerokosc_wsparcia_lozyska,dlugosc_lozyska,wysokosc_wsparcia_lozyska,srednica_lozyska);
+            
+            
             //pojednycze
-            translate([0,odstep_miedzy_lozyskami/2,-wysokosc_wsparcia_lozyska-margin]) bearing(szerokosc_wsparcia_lozyska,dlugosc_lozyska,wysokosc_wsparcia_lozyska,srednica_lozyska);
+            translate([0,0,-wysokosc_wsparcia_lozyska-margin]) bearing(szerokosc_wsparcia_lozyska,dlugosc_lozyska,wysokosc_wsparcia_lozyska,srednica_lozyska);
             
         }
   
@@ -157,7 +159,7 @@ if(show_not_related_components)
 //dodatkowe elementy ktore nie sa czesia detalu
 translate([rozstaw_osi,0,0]) color(sec_colour)LM10UU();
 translate([rozstaw_osi,odstep_miedzy_lozyskami,0]) color(sec_colour) LM10UU();
-translate([0,odstep_miedzy_lozyskami/2,0]) color(sec_colour) LM10UU();
+translate([0,0,0]) color(sec_colour) LM10UU();
 color(sec_colour){
 translate([0,-20,0])sanki(10);
 }
