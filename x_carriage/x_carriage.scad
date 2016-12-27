@@ -31,8 +31,8 @@ module bearing(x,y,z,r)
         cube([x+margin,y,z+margin]); 
         rotate([-90,0,0])translate([x/2+margin/2,0,0])cylinder(y,r/2,r/2,false);
         //otwory na drucik do przymocowania lozysk
-        translate([0,5,z+margin/3])rotate([0,90,0])cylinder(x,1.5,1.5,false);
-        translate([0,y-5,z+margin/3])rotate([0,90,0])cylinder(x,1.5,1.5,false);
+        translate([-1,5,z+margin/3])rotate([0,90,0])cylinder(x+margin+2,1.5,1.5,false);
+        translate([-1,y-5,z+margin/3])rotate([0,90,0])cylinder(x+margin+2,1.5,1.5,false);
 }
     }
     
@@ -95,13 +95,14 @@ module main_surface()
         translate(os_grzalki)
         {
             grzalka();
+            $fn=80;
             //otwory montazowe extrudera
-            translate([14.5,0,0])cylinder(wysokosc_glownej_powierzchni,3/2,3/2);
-            translate([-46,0,0])cylinder(wysokosc_glownej_powierzchni,3/2,3/2);
+            translate([14.5,0,0])cylinder(wysokosc_glownej_powierzchni,2,2);
+            translate([-45,0,0])cylinder(wysokosc_glownej_powierzchni,2,2);
        }    
         //otwory na pasek
-        x_offset_na_pasek=20;
-        y_offset_na_pasek=20;
+        x_offset_na_pasek=22;
+        y_offset_na_pasek=5;
         translate([szerokosc_glownej_powierzchni-x_offset_na_pasek,glebokosc_glownej_powierzchni/2,0]) zestaw_dziurek_na_pasek();    
     }
 
@@ -134,7 +135,7 @@ module dziurka_na_pasek(szerokosc_otworu_na_pasek,glebokosc_otworu_na_pasek)
 
 module zestaw_dziurek_na_pasek()
 {
-    szerokosc_otworu_na_pasek=5;
+    szerokosc_otworu_na_pasek=8;
     glebokosc_otworu_na_pasek=8;
     space_between=10;
     
