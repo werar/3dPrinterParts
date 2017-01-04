@@ -1,4 +1,4 @@
-show_not_related_components=1;
+show_not_related_components=0;
 
 dlugosc_lozyska=30;
 srednica_lozyska=19;
