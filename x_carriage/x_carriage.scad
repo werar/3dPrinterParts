@@ -1,7 +1,7 @@
-show_not_related_components=1;
+show_not_related_components=0;
 
 dlugosc_lozyska=30;
-srednica_lozyska=19;
+srednica_lozyska=19.4; //powinno byc 19, korekcja na zla kalibracje
 wewnetrzna_srednica_lozyska=10;
 
 
@@ -63,42 +63,52 @@ module main_surface()
 {
     origin_glownej_powierzchni=-(szerokosc_wsparcia_lozyska/2+margin/2);
     
-    szerokosc_additional_part=13;
-    glebokosc_additional_part=10;
+    szerokosc_additional_part=30;
+    glebokosc_additional_part=30;
     
     difference()
     {
         translate([origin_glownej_powierzchni,0,0])
         union()
         {
+            difference()
+            {
             cube([szerokosc_glownej_powierzchni,glebokosc_glownej_powierzchni,wysokosc_glownej_powierzchni]);
+            //odchudzimy glowna powierzchnie
+            translate([30,0,0]) cube([szerokosc_glownej_powierzchni,glebokosc_glownej_powierzchni/5,wysokosc_glownej_powierzchni]);
+            translate([30,glebokosc_glownej_powierzchni-glebokosc_glownej_powierzchni/5,0]) cube([szerokosc_glownej_powierzchni,glebokosc_glownej_powierzchni/5,wysokosc_glownej_powierzchni]);
+                
+            }
             
             translate([-szerokosc_additional_part,glebokosc_glownej_powierzchni/2-glebokosc_additional_part/2,0])  
             main_surface_additional_part(szerokosc_additional_part,glebokosc_additional_part,wysokosc_glownej_powierzchni);
             
             //mocowanie lozysk
             //pierwsze z dwoch
-            translate([rozstaw_osi,0,-wysokosc_wsparcia_lozyska-margin]) 
-            bearing(szerokosc_wsparcia_lozyska,dlugosc_lozyska,wysokosc_wsparcia_lozyska,srednica_lozyska);
+             translate([0,0,-wysokosc_wsparcia_lozyska-margin]) bearing(szerokosc_wsparcia_lozyska,dlugosc_lozyska,wysokosc_wsparcia_lozyska,srednica_lozyska);
             //drugie z dwóch
-            translate([rozstaw_osi,odstep_miedzy_lozyskami,-wysokosc_wsparcia_lozyska-margin]) bearing(szerokosc_wsparcia_lozyska,dlugosc_lozyska,wysokosc_wsparcia_lozyska,srednica_lozyska);
+            translate([0,odstep_miedzy_lozyskami,-wysokosc_wsparcia_lozyska-margin]) bearing(szerokosc_wsparcia_lozyska,dlugosc_lozyska,wysokosc_wsparcia_lozyska,srednica_lozyska);
             
             
             //pojednycze
-            translate([0,0,-wysokosc_wsparcia_lozyska-margin]) bearing(szerokosc_wsparcia_lozyska,dlugosc_lozyska,wysokosc_wsparcia_lozyska,srednica_lozyska);
+            translate([rozstaw_osi,odstep_miedzy_lozyskami/2,-wysokosc_wsparcia_lozyska-margin]) 
+            bearing(szerokosc_wsparcia_lozyska,dlugosc_lozyska,wysokosc_wsparcia_lozyska,srednica_lozyska);
+            
+
             
         }
   
         //otwor na grzalke 
         x_offet_grzalka=2;
-        os_grzalki=[rozstaw_osi/2+x_offet_grzalka,glebokosc_glownej_powierzchni/2,0];
+        przesuniecie_grzalki_poza_os=-24;
+        os_grzalki=[przesuniecie_grzalki_poza_os,glebokosc_glownej_powierzchni/2,0];
         translate(os_grzalki)
         {
             grzalka();
             $fn=80;
             //otwory montazowe extrudera
-            translate([14.5,0,0])cylinder(wysokosc_glownej_powierzchni,2,2);
-            translate([-45,0,0])cylinder(wysokosc_glownej_powierzchni,2,2);
+            translate([-14.5,0,0])cylinder(wysokosc_glownej_powierzchni,2,2);
+            translate([45,0,0])cylinder(wysokosc_glownej_powierzchni,2,2);
        }    
         //otwory na pasek
         x_offset_na_pasek=22;
@@ -136,8 +146,8 @@ module dziurka_na_pasek(szerokosc_otworu_na_pasek,glebokosc_otworu_na_pasek)
 module zestaw_dziurek_na_pasek()
 {
     szerokosc_otworu_na_pasek=8;
-    glebokosc_otworu_na_pasek=8;
-    space_between=10;
+    glebokosc_otworu_na_pasek=5;
+    space_between=6;
     
     translate([0,space_between/2])
     dziurka_na_pasek(szerokosc_otworu_na_pasek,glebokosc_otworu_na_pasek);
@@ -158,8 +168,8 @@ if(show_not_related_components)
 {
 
 //dodatkowe elementy ktore nie sa czesia detalu
-translate([rozstaw_osi,0,0]) color(sec_colour)LM10UU();
-translate([rozstaw_osi,odstep_miedzy_lozyskami,0]) color(sec_colour) LM10UU();
+translate([rozstaw_osi,odstep_miedzy_lozyskami/2,0]) color(sec_colour)LM10UU();
+translate([0,odstep_miedzy_lozyskami,0]) color(sec_colour) LM10UU();
 translate([0,0,0]) color(sec_colour) LM10UU();
 color(sec_colour){
 translate([0,-20,0])sanki(10);
