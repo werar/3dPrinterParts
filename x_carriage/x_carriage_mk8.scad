@@ -106,6 +106,7 @@ module main_surface()
             
 
        }    
+       $fn=80;
        //pomocnicze otwory na solidniejsze przymocowanie mk8
        //wspolrzedne na oko
        translate([25,20,0])cylinder(wysokosc_glownej_powierzchni,2,2);
