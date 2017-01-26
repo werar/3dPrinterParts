@@ -62,7 +62,7 @@ module main_surface()
 {
     origin_glownej_powierzchni=-(szerokosc_wsparcia_lozyska/2+margin/2);
     
-    szerokosc_additional_part=22;
+    szerokosc_additional_part=18;
     glebokosc_additional_part=40;
     
     difference()
@@ -96,21 +96,20 @@ module main_surface()
   
         //otwor na grzalke 
         przesuniecie_grzalki_poza_os=-24;
-        os_grzalki=[przesuniecie_grzalki_poza_os,glebokosc_glownej_powierzchni/2+5,0];
+        os_grzalki=[przesuniecie_grzalki_poza_os,glebokosc_glownej_powierzchni/2-6,0];
         translate(os_grzalki)
         {
             grzalka();
             $fn=80;
-            //otwory montazowe extrudera //18 od osi grzalki
-            translate([0,-18,0])cylinder(wysokosc_glownej_powierzchni,2,2);
-            
-
+            //otwory montazowe extrudera //ok 17 od osi grzalki
+            translate([0,16.8,0])cylinder(wysokosc_glownej_powierzchni,2,2);
+           
        }    
        $fn=80;
        //pomocnicze otwory na solidniejsze przymocowanie mk8
        //wspolrzedne na oko
-       translate([25,20,0])cylinder(wysokosc_glownej_powierzchni,2,2);
-       translate([25,57,0])cylinder(wysokosc_glownej_powierzchni,2,2);
+       translate([16,20,0])cylinder(wysokosc_glownej_powierzchni,1.5,1.5);
+       translate([16,57,0])cylinder(wysokosc_glownej_powierzchni,1.5,1.5);
        
         //otwory na pasek
         x_offset_na_pasek=22;
