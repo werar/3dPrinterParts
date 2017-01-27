@@ -96,13 +96,13 @@ module main_surface()
   
         //otwor na grzalke 
         przesuniecie_grzalki_poza_os=-24;
-        os_grzalki=[przesuniecie_grzalki_poza_os,glebokosc_glownej_powierzchni/2-6,0];
+        os_grzalki=[przesuniecie_grzalki_poza_os,glebokosc_glownej_powierzchni/2+4,0];
         translate(os_grzalki)
         {
             grzalka();
             $fn=80;
             //otwory montazowe extrudera //ok 17 od osi grzalki
-            translate([0,16.8,0])cylinder(wysokosc_glownej_powierzchni,2,2);
+            translate([0,-16.8,0])cylinder(wysokosc_glownej_powierzchni,2,2);
            
        }    
        $fn=80;
