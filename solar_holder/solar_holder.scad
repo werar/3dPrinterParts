@@ -12,8 +12,9 @@ holder_thicknes=5;
 holder_height=3;
 
 //Holder dimention near mounting surface
-sufrace_width=15;
+sufrace_width=20;
 sufrace_height=5;
+surface_thicknes=7;
 
 //Solar mount part height (from surface)
 solar_mount_part_height=10;
@@ -31,10 +32,9 @@ module surface_part()
     
     difference()
     {
-        cube([sufrace_width,sufrace_height,holder_thicknes]);
+        cube([sufrace_width,sufrace_height,surface_thicknes]);
         //screw hole
-        translate([sufrace_width*0.8,0,holder_thicknes/2])rotate([-90,0,0])cylinder(holder_thicknes,screw_diameter/2,screw_diameter/2);
-        
+        translate([sufrace_width*0.8,0,surface_thicknes/2])rotate([-90,0,0])cylinder(holder_thicknes,screw_diameter/2,screw_diameter/2);   
     }
 }
 
