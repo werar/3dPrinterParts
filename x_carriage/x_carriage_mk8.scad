@@ -16,7 +16,7 @@ margin=4;
 
 odstep_miedzy_lozyskami=dlugosc_lozyska+17;
 
-wysokosc_glownej_powierzchni=7; //z
+wysokosc_glownej_powierzchni=5; //z za duża grubość spowoduje że dysza nie dotknie stołu, bo łożyska będą dotykać.
 szerokosc_glownej_powierzchni=82; //x
 glebokosc_glownej_powierzchni=2*dlugosc_lozyska+17; //y
 
@@ -26,10 +26,11 @@ sec_colour = "OrangeRed";
 module bearing(x,y,z,r)
 {
     $fn=80;
+    podniesienie_lozysk=-1; //extruder mk8 ma relatywnie krótka dyszę przez co mocowanie łożysk ociera się o blat. Ten parametr daje mozliwosc schowania głebiej łożysk, ale kosztem odkrycia otworów na na mocowanie łożysk jeżeli ten parametr jest >0
     difference()
     {
         cube([x+margin,y,z+margin]); 
-        rotate([-90,0,0])translate([x/2+margin/2,0,0])cylinder(y,r/2,r/2,false);
+        rotate([-90,0,0])translate([x/2+margin/2,podniesienie_lozysk,0])cylinder(y,r/2,r/2,false);
         //otwory na drucik do przymocowania lozysk
         translate([-1,5,z+margin/3])rotate([0,90,0])cylinder(x+margin+2,1.5,1.5,false);
         translate([-1,y-5,z+margin/3])rotate([0,90,0])cylinder(x+margin+2,1.5,1.5,false);
